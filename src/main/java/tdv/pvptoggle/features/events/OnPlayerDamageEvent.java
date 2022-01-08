@@ -10,10 +10,16 @@ import net.minecraftforge.fml.common.Mod;
 import tdv.pvptoggle.PvpToggle;
 
 @Mod.EventBusSubscriber(modid = PvpToggle.MODID)
-public class PlayerDamage {
+public class OnPlayerDamageEvent
+{
     @SubscribeEvent
-    public static void onPlayerDamage(LivingAttackEvent event) {
-        if (event.getEntityLiving() instanceof PlayerEntity && event.getSource() != null && event.getSource().getEntity() != null && event.getSource().getEntity() instanceof PlayerEntity) {
+    public static void onPlayerDamage(LivingAttackEvent event)
+    {
+        if (event.getEntityLiving() instanceof PlayerEntity &&
+                event.getSource() != null &&
+                event.getSource().getEntity() != null &&
+                event.getSource().getEntity() instanceof PlayerEntity)
+        {
             PlayerEntity playerAttack = (PlayerEntity) event.getSource().getEntity();
             PlayerEntity playerAttacked = (PlayerEntity) event.getEntityLiving();
             if (PvpToggle.pvpStatus.getOrDefault(playerAttacked.getName().toString(), false) && PvpToggle.pvpStatus.getOrDefault(playerAttack.getName().toString(), false)) {
